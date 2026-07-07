@@ -45,7 +45,7 @@ export function Hero({
           priority
           sizes="(max-width: 1024px) 100vw, 60vw"
           style={{ objectFit: "cover", objectPosition: "center 22%" }}
-          className="animate-breathe grayscale"
+          className="animate-breathe saturate-[0.92] contrast-[1.02]"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 to-transparent to-[34%]" />
         <div className="absolute right-6 top-6 font-sans text-[9px] font-light uppercase tracking-[0.34em] text-white/50 [writing-mode:vertical-rl]">

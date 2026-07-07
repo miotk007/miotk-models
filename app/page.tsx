@@ -6,7 +6,35 @@ import { ModelCard } from "@/components/ModelCard";
 import { ServiceRow } from "@/components/ServiceRow";
 import { Globe } from "@/components/Globe";
 import { Reveal } from "@/components/Reveal";
+import { EditorialImage } from "@/components/EditorialImage";
 import { getCampaigns, getCities, getModels, getServices } from "@/lib/cms";
+
+const SHANGHAI_STORY = [
+  {
+    src: "/images/editorial/simon-shanghai-05.jpg",
+    title: "Street walk",
+    meta: "Frame 01",
+    objectPosition: "center 36%",
+  },
+  {
+    src: "/images/editorial/simon-shanghai-03.jpg",
+    title: "Waibaidu turn",
+    meta: "Frame 02",
+    objectPosition: "center 22%",
+  },
+  {
+    src: "/images/editorial/simon-shanghai-04.jpg",
+    title: "Lujiazui light",
+    meta: "Frame 03",
+    objectPosition: "center 18%",
+  },
+  {
+    src: "/images/editorial/simon-shanghai-06.jpg",
+    title: "Bund pause",
+    meta: "Frame 04",
+    objectPosition: "center 35%",
+  },
+];
 
 export default async function HomePage() {
   const [models, campaigns, services, cities] = await Promise.all([
@@ -21,10 +49,54 @@ export default async function HomePage() {
   return (
     <>
       <Hero
-        image={featured.cover ?? "/images/kacper-shanghai.jpg"}
+        image={featured.frames[1] ?? featured.cover ?? "/images/kacper-shanghai.jpg"}
         modelName={featured.name}
         meta="31.23° N — Shanghai"
       />
+
+      {/* Shanghai editorial */}
+      <SectionTitle id="editorial" title="Shanghai Street" aside="Lujiazui — 28.06.2026" />
+      <div className="grid grid-cols-2 border-t border-line lg:grid-cols-6">
+        <Reveal className="col-span-2 flex min-h-[390px] flex-col justify-between border-line px-6 py-10 md:px-10 md:py-12 lg:border-r lg:px-12">
+          <p className="eyebrow tracking-[0.3em]">Editorial File</p>
+          <div>
+            <h2 className="max-w-[12ch] font-display text-4xl font-normal leading-tight tracking-[-0.015em] md:text-[44px]">
+              Shanghai, shot in motion.
+            </h2>
+            <p className="mt-5 max-w-[36ch] font-sans text-[13px] font-light leading-relaxed text-muted">
+              A street set around Waibaidu Bridge and Lujiazui, built from clean
+              tailoring, skyline light and campaign-ready frames.
+            </p>
+          </div>
+          <Link
+            href="/board/simon-miotk"
+            className="font-sans text-[10px] font-light uppercase tracking-[0.22em] text-muted transition-colors duration-500 hover:text-fg"
+          >
+            View portfolio →
+          </Link>
+        </Reveal>
+        {SHANGHAI_STORY.map((frame) => (
+          <Link
+            key={frame.src}
+            href="/board/simon-miotk"
+            className="group block border-line p-[14px] transition-colors duration-500 md:p-[18px] [&:not(:last-child)]:border-r"
+          >
+            <EditorialImage
+              src={frame.src}
+              alt={`Simon Miotk — ${frame.title}`}
+              sizes="(max-width: 1024px) 50vw, 16vw"
+              objectPosition={frame.objectPosition}
+              className="aspect-[3/4] w-full"
+            />
+            <div className="mt-3 flex items-baseline justify-between gap-3">
+              <span className="font-display text-lg md:text-xl">{frame.title}</span>
+              <span className="whitespace-nowrap font-sans text-[9px] font-light uppercase tracking-[0.16em] text-muted">
+                {frame.meta}
+              </span>
+            </div>
+          </Link>
+        ))}
+      </div>
 
       {/* The Board — preview */}
       <SectionTitle title="The Board" aside="Open call — apply →" />

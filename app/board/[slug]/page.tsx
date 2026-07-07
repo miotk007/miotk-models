@@ -41,6 +41,15 @@ const STAT_LABELS: StatLabel[] = [
   { key: "eyes", label: "Eyes", fmt: (v: StatValue) => `${v}` },
 ];
 
+const FRAME_POSITIONS = [
+  "center 18%",
+  "center 18%",
+  "center 22%",
+  "center 18%",
+  "center 36%",
+  "center 35%",
+];
+
 export default async function ModelProfile({
   params,
 }: {
@@ -128,7 +137,7 @@ export default async function ModelProfile({
           {model.frames.length} frames
         </span>
       </div>
-      <div className="grid grid-cols-2 gap-px border-y border-line bg-line md:grid-cols-5">
+      <div className="grid grid-cols-2 gap-px border-y border-line bg-line md:grid-cols-3 lg:grid-cols-6">
         {model.frames.map((frame, i) => (
           <EditorialImage
             key={i}
@@ -136,7 +145,7 @@ export default async function ModelProfile({
             alt={`${model.name} — frame ${i + 1}`}
             sizes="(max-width: 768px) 50vw, 20vw"
             placeholderLabel="Frame"
-            objectPosition="center 18%"
+            objectPosition={FRAME_POSITIONS[i] ?? "center 18%"}
             className="aspect-[3/4] w-full"
           />
         ))}

@@ -45,11 +45,20 @@ export const SERVICES: Service[] = [
   { number: "06", title: "Campaign Execution", note: "End to end" },
 ];
 
+const SHANGHAI_FRAMES = [
+  "/images/editorial/simon-shanghai-02.jpg",
+  "/images/editorial/simon-shanghai-01.jpg",
+  "/images/editorial/simon-shanghai-03.jpg",
+  "/images/editorial/simon-shanghai-04.jpg",
+  "/images/editorial/simon-shanghai-05.jpg",
+  "/images/editorial/simon-shanghai-06.jpg",
+] as const;
+
 export const CAMPAIGNS: Campaign[] = [
-  { slug: "summer-resort", number: "01", title: "Summer Resort", location: "Shanghai", year: 2026, image: "/images/kacper-shanghai.jpg" },
-  { slug: "fine-jewelry", number: "02", title: "Fine Jewelry", location: "Seoul", year: 2026, image: null },
-  { slug: "swimwear", number: "03", title: "Swimwear", location: "Manila", year: 2026, image: null },
-  { slug: "editorial", number: "04", title: "Editorial", location: "Milano", year: 2026, image: null },
+  { slug: "shanghai-street", number: "01", title: "Shanghai Street", location: "Shanghai", year: 2026, image: "/images/editorial/simon-shanghai-05.jpg" },
+  { slug: "waibaidu-bridge", number: "02", title: "Waibaidu Bridge", location: "Shanghai", year: 2026, image: "/images/editorial/simon-shanghai-06.jpg" },
+  { slug: "bund-editorial", number: "03", title: "Bund Editorial", location: "Shanghai", year: 2026, image: "/images/editorial/simon-shanghai-03.jpg" },
+  { slug: "lujiazui-light", number: "04", title: "Lujiazui Light", location: "Shanghai", year: 2026, image: "/images/editorial/simon-shanghai-01.jpg" },
 ];
 
 export const MODELS: Model[] = [
@@ -58,9 +67,9 @@ export const MODELS: Model[] = [
     name: "Simon Miotk",
     category: "men",
     basedIn: "Warsaw & Shanghai",
-    cover: "/images/kacper-shanghai.jpg",
-    frames: ["/images/kacper-shanghai.jpg", null, null, null, null],
-    measurements: { heightCm: 186, chestCm: 98, waistCm: 78, hipsCm: 96, shoeEu: 44, hair: "Dark", eyes: "Green" },
-    campaigns: ["summer-resort", "editorial"],
+    cover: SHANGHAI_FRAMES[0],
+    frames: [...SHANGHAI_FRAMES],
+    measurements: { heightCm: 186, chestCm: 98, waistCm: 78, hipsCm: 96, shoeEu: 44, hair: "Brown", eyes: "Green" },
+    campaigns: ["shanghai-street", "waibaidu-bridge", "bund-editorial", "lujiazui-light"],
   },
 ];
