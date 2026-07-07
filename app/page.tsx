@@ -49,7 +49,8 @@ export default async function HomePage() {
   return (
     <>
       <Hero
-        image={featured.frames[1] ?? featured.cover ?? "/images/kacper-shanghai.jpg"}
+        image={featured.frames[5] ?? featured.cover ?? "/images/kacper-shanghai.jpg"}
+        imagePosition="center 34%"
         modelName={featured.name}
         meta="31.23° N — Shanghai"
       />

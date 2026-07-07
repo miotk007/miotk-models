@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { EditorialImage } from "@/components/EditorialImage";
+import { PortfolioLightbox } from "@/components/PortfolioLightbox";
 import { Button } from "@/components/Button";
 import { getCampaign, getModel, getModelSlugs } from "@/lib/cms";
 import type { Campaign } from "@/lib/types";
@@ -63,6 +64,7 @@ export default async function ModelProfile({
   ).filter(Boolean) as Campaign[];
 
   const m = model.measurements as unknown as Record<string, string | number | undefined>;
+  const portfolioFrames = model.frames.filter((frame): frame is string => Boolean(frame));
 
   return (
     <>
@@ -134,22 +136,14 @@ export default async function ModelProfile({
           Portfolio
         </span>
         <span className="font-sans text-[11px] font-light uppercase tracking-[0.16em] text-muted">
-          {model.frames.length} frames
+          {portfolioFrames.length} frames
         </span>
       </div>
-      <div className="grid grid-cols-2 gap-px border-y border-line bg-line md:grid-cols-3 lg:grid-cols-6">
-        {model.frames.map((frame, i) => (
-          <EditorialImage
-            key={i}
-            src={frame}
-            alt={`${model.name} — frame ${i + 1}`}
-            sizes="(max-width: 768px) 50vw, 20vw"
-            placeholderLabel="Frame"
-            objectPosition={FRAME_POSITIONS[i] ?? "center 18%"}
-            className="aspect-[3/4] w-full"
-          />
-        ))}
-      </div>
+      <PortfolioLightbox
+        frames={portfolioFrames}
+        modelName={model.name}
+        objectPositions={FRAME_POSITIONS}
+      />
 
       {/* Campaigns */}
       {campaigns.length > 0 ? (

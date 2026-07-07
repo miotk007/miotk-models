@@ -20,6 +20,30 @@ export function Nav() {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = () => {
+      if (desktop.matches) setOpen(false);
+    };
+
+    closeOnDesktop();
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, [open]);
+
   return (
     <header className="sticky top-0 z-50 bg-bg/85 backdrop-blur-sm">
       {/* Meta strip */}
@@ -80,44 +104,47 @@ export function Nav() {
       <AnimatePresence>
         {open ? (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
             transition={{ duration: 0.5, ease: EASE_EDITORIAL }}
-            className="fixed inset-0 z-50 flex flex-col bg-bg lg:hidden"
+            className="fixed inset-0 z-[100] flex min-h-dvh flex-col overflow-hidden bg-onyx text-fg lg:hidden"
           >
-            <div className="flex items-center justify-between border-b border-line px-6 py-6">
-              <span className="font-display text-2xl font-medium tracking-[0.05em]">
-                MIOTK
+            <div className="grid grid-cols-[1fr_auto_1fr] items-center border-b border-line px-6 py-6">
+              <span className="justify-self-start font-sans text-[10px] font-light uppercase tracking-wide text-muted">
+                Menu
+              </span>
+              <span className="justify-self-center whitespace-nowrap font-display text-2xl font-medium tracking-[0.05em]">
+                MIOTK MODELS
               </span>
               <button
                 type="button"
                 aria-label="Close menu"
                 onClick={() => setOpen(false)}
-                className="font-sans text-[11px] font-light uppercase tracking-wide text-muted"
+                className="justify-self-end font-sans text-[11px] font-light uppercase tracking-wide text-muted transition-colors duration-500 hover:text-fg"
               >
-                Close ✕
+                Close
               </button>
             </div>
-            <nav className="flex flex-1 flex-col justify-center gap-2 px-6">
+            <nav className="flex flex-1 flex-col items-center justify-center gap-1 px-6 text-center">
               {ALL_LINKS.map((l, i) => (
                 <motion.div
                   key={l.href}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.06 * i, duration: 0.6, ease: EASE_EDITORIAL }}
+                  initial={{ opacity: 0, y: 18, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ delay: 0.06 * i, duration: 0.65, ease: EASE_EDITORIAL }}
                 >
                   <Link
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className="block py-3 font-display text-4xl"
+                    className="block py-2 font-display text-[clamp(42px,14vw,76px)] leading-[0.95] tracking-[-0.02em] text-fg transition-colors duration-500 hover:text-muted"
                   >
                     {l.label}
                   </Link>
                 </motion.div>
               ))}
             </nav>
-            <div className="border-t border-line px-6 py-6 font-sans text-[10px] font-light uppercase tracking-[0.24em] text-muted">
+            <div className="border-t border-line px-6 py-6 text-center font-sans text-[10px] font-light uppercase tracking-[0.24em] text-muted">
               {SITE.studios.join(" · ")} — Est. {SITE.established}
             </div>
           </motion.div>

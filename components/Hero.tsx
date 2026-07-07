@@ -11,10 +11,12 @@ export function Hero({
   image,
   modelName,
   meta,
+  imagePosition = "center 22%",
 }: {
   image: string;
   modelName: string;
   meta: string;
+  imagePosition?: string;
 }) {
   return (
     <section className="grid grid-cols-1 border-t border-line lg:grid-cols-[0.82fr_1.18fr]">
@@ -44,9 +46,10 @@ export function Hero({
           fill
           priority
           sizes="(max-width: 1024px) 100vw, 60vw"
-          style={{ objectFit: "cover", objectPosition: "center 22%" }}
+          style={{ objectFit: "cover", objectPosition: imagePosition }}
           className="animate-breathe saturate-[0.92] contrast-[1.02]"
         />
+        <div className="camera-shutter" aria-hidden="true" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 to-transparent to-[34%]" />
         <div className="absolute right-6 top-6 font-sans text-[9px] font-light uppercase tracking-[0.34em] text-white/50 [writing-mode:vertical-rl]">
           Nº 01 — SS26

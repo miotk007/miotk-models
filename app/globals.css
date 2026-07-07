@@ -63,6 +63,75 @@
   animation: breathe 16s ease-in-out infinite;
 }
 
+/* Camera-shutter blink layered over the homepage hero photo. */
+.camera-shutter {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.camera-shutter::before,
+.camera-shutter::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: #030302;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.camera-shutter::before {
+  top: 0;
+  transform: translateY(-105%);
+  animation: shutter-top 5.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.camera-shutter::after {
+  bottom: 0;
+  transform: translateY(105%);
+  animation: shutter-bottom 5.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+@keyframes shutter-top {
+  0%,
+  68%,
+  100% {
+    opacity: 0;
+    transform: translateY(-105%);
+  }
+  72%,
+  75% {
+    opacity: 0.88;
+    transform: translateY(0);
+  }
+  82% {
+    opacity: 0;
+    transform: translateY(-105%);
+  }
+}
+
+@keyframes shutter-bottom {
+  0%,
+  68%,
+  100% {
+    opacity: 0;
+    transform: translateY(105%);
+  }
+  72%,
+  75% {
+    opacity: 0.88;
+    transform: translateY(0);
+  }
+  82% {
+    opacity: 0;
+    transform: translateY(105%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -70,5 +139,9 @@
   .animate-breathe {
     animation: none;
     transform: scale(1.06);
+  }
+  .camera-shutter::before,
+  .camera-shutter::after {
+    animation: none;
   }
 }
