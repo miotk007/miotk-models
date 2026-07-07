@@ -6,60 +6,71 @@ import { ModelCard } from "@/components/ModelCard";
 import { ServiceRow } from "@/components/ServiceRow";
 import { Globe } from "@/components/Globe";
 import { Reveal } from "@/components/Reveal";
-import { EditorialImage } from "@/components/EditorialImage";
+import { LocationAtlas } from "@/components/LocationAtlas";
 import { getCampaigns, getCities, getModels, getServices } from "@/lib/cms";
 
-const GDYNIA_STORY = [
+const ATLAS_LOCATIONS = [
   {
-    src: "/images/editorial/gdynia/simon-gdynia-bw-06.jpg",
-    title: "Studio cover",
-    meta: "Frame 01",
-    objectPosition: "center 44%",
+    key: "shanghai",
+    name: "Shanghai",
+    role: "Street · Colour",
+    coords: [31.23, 121.47] as [number, number],
+    meta: "Lujiazui — 28.06.2026",
+    description:
+      "Street energy around Waibaidu Bridge and Lujiazui, built for colour, movement and campaign-ready frames.",
+    frames: [
+      {
+        src: "/images/editorial/simon-shanghai-05.jpg",
+        title: "Street walk",
+        objectPosition: "center 36%",
+      },
+      {
+        src: "/images/editorial/simon-shanghai-03.jpg",
+        title: "Waibaidu turn",
+        objectPosition: "center 22%",
+      },
+      {
+        src: "/images/editorial/simon-shanghai-04.jpg",
+        title: "Lujiazui light",
+        objectPosition: "center 18%",
+      },
+      {
+        src: "/images/editorial/simon-shanghai-06.jpg",
+        title: "Bund pause",
+        objectPosition: "center 35%",
+      },
+    ],
   },
   {
-    src: "/images/editorial/gdynia/simon-gdynia-bw-04.jpg",
-    title: "Seated noir",
-    meta: "Frame 02",
-    objectPosition: "center 26%",
-  },
-  {
-    src: "/images/editorial/gdynia/simon-gdynia-colour-11.jpg",
-    title: "Colour close",
-    meta: "Frame 03",
-    objectPosition: "center 18%",
-  },
-  {
-    src: "/images/editorial/gdynia/simon-gdynia-colour-12.jpg",
-    title: "White shirt",
-    meta: "Frame 04",
-    objectPosition: "center 18%",
-  },
-];
-
-const SHANGHAI_STORY = [
-  {
-    src: "/images/editorial/simon-shanghai-05.jpg",
-    title: "Street walk",
-    meta: "Frame 01",
-    objectPosition: "center 36%",
-  },
-  {
-    src: "/images/editorial/simon-shanghai-03.jpg",
-    title: "Waibaidu turn",
-    meta: "Frame 02",
-    objectPosition: "center 22%",
-  },
-  {
-    src: "/images/editorial/simon-shanghai-04.jpg",
-    title: "Lujiazui light",
-    meta: "Frame 03",
-    objectPosition: "center 18%",
-  },
-  {
-    src: "/images/editorial/simon-shanghai-06.jpg",
-    title: "Bund pause",
-    meta: "Frame 04",
-    objectPosition: "center 35%",
+    key: "gdynia",
+    name: "Gdynia",
+    role: "Studio · Editorial",
+    coords: [54.52, 18.53] as [number, number],
+    meta: "Studio — 02.03.2026",
+    description:
+      "A quieter studio set: black-and-white tailoring first, then cleaner colour frames as the page opens up.",
+    frames: [
+      {
+        src: "/images/editorial/gdynia/simon-gdynia-bw-06.jpg",
+        title: "Studio cover",
+        objectPosition: "center 44%",
+      },
+      {
+        src: "/images/editorial/gdynia/simon-gdynia-colour-11.jpg",
+        title: "Colour close",
+        objectPosition: "center 18%",
+      },
+      {
+        src: "/images/editorial/gdynia/simon-gdynia-colour-12.jpg",
+        title: "White shirt",
+        objectPosition: "center 18%",
+      },
+      {
+        src: "/images/editorial/gdynia/simon-gdynia-colour-06.jpg",
+        title: "Studio frame",
+        objectPosition: "center 38%",
+      },
+    ],
   },
 ];
 
@@ -77,98 +88,13 @@ export default async function HomePage() {
     <>
       <Hero
         image={featured.cover ?? "/images/editorial/gdynia/simon-gdynia-bw-06.jpg"}
-        imagePosition="center 48%"
+        imagePosition="center 43%"
         modelName={featured.name}
         meta="54.52° N — Gdynia"
       />
 
-      {/* Gdynia editorial */}
-      <SectionTitle id="editorial" title="Gdynia Noir" aside="Studio — 02.03.2026" />
-      <div className="grid grid-cols-2 border-t border-line lg:grid-cols-6">
-        <Reveal className="col-span-2 flex min-h-[390px] flex-col justify-between border-line px-6 py-10 md:px-10 md:py-12 lg:border-r lg:px-12">
-          <p className="eyebrow tracking-[0.3em]">Editorial File</p>
-          <div>
-            <h2 className="max-w-[12ch] font-display text-4xl font-normal leading-tight tracking-[-0.015em] md:text-[44px]">
-              Studio portraits, cut in black and white.
-            </h2>
-            <p className="mt-5 max-w-[36ch] font-sans text-[13px] font-light leading-relaxed text-muted">
-              A Gdynia studio set with stark tailoring, quiet colour frames and
-              a cleaner campaign-book rhythm.
-            </p>
-          </div>
-          <Link
-            href="/board/simon-miotk"
-            className="font-sans text-[10px] font-light uppercase tracking-[0.22em] text-muted transition-colors duration-500 hover:text-fg"
-          >
-            View portfolio →
-          </Link>
-        </Reveal>
-        {GDYNIA_STORY.map((frame) => (
-          <Link
-            key={frame.src}
-            href="/board/simon-miotk"
-            className="group block border-line p-[14px] transition-colors duration-500 md:p-[18px] [&:not(:last-child)]:border-r"
-          >
-            <EditorialImage
-              src={frame.src}
-              alt={`Simon Miotk — ${frame.title}`}
-              sizes="(max-width: 1024px) 50vw, 16vw"
-              objectPosition={frame.objectPosition}
-              className="aspect-[3/4] w-full"
-            />
-            <div className="mt-3 flex items-baseline justify-between gap-3">
-              <span className="font-display text-lg md:text-xl">{frame.title}</span>
-              <span className="whitespace-nowrap font-sans text-[9px] font-light uppercase tracking-[0.16em] text-muted">
-                {frame.meta}
-              </span>
-            </div>
-          </Link>
-        ))}
-      </div>
-
-      {/* Shanghai editorial */}
-      <SectionTitle title="Shanghai Street" aside="Lujiazui — 28.06.2026" />
-      <div className="grid grid-cols-2 border-t border-line lg:grid-cols-6">
-        <Reveal className="col-span-2 flex min-h-[390px] flex-col justify-between border-line px-6 py-10 md:px-10 md:py-12 lg:border-r lg:px-12">
-          <p className="eyebrow tracking-[0.3em]">Editorial File</p>
-          <div>
-            <h2 className="max-w-[12ch] font-display text-4xl font-normal leading-tight tracking-[-0.015em] md:text-[44px]">
-              Shanghai, shot in motion.
-            </h2>
-            <p className="mt-5 max-w-[36ch] font-sans text-[13px] font-light leading-relaxed text-muted">
-              A street set around Waibaidu Bridge and Lujiazui, built from clean
-              tailoring, skyline light and campaign-ready frames.
-            </p>
-          </div>
-          <Link
-            href="/board/simon-miotk"
-            className="font-sans text-[10px] font-light uppercase tracking-[0.22em] text-muted transition-colors duration-500 hover:text-fg"
-          >
-            View portfolio →
-          </Link>
-        </Reveal>
-        {SHANGHAI_STORY.map((frame) => (
-          <Link
-            key={frame.src}
-            href="/board/simon-miotk"
-            className="group block border-line p-[14px] transition-colors duration-500 md:p-[18px] [&:not(:last-child)]:border-r"
-          >
-            <EditorialImage
-              src={frame.src}
-              alt={`Simon Miotk — ${frame.title}`}
-              sizes="(max-width: 1024px) 50vw, 16vw"
-              objectPosition={frame.objectPosition}
-              className="aspect-[3/4] w-full"
-            />
-            <div className="mt-3 flex items-baseline justify-between gap-3">
-              <span className="font-display text-lg md:text-xl">{frame.title}</span>
-              <span className="whitespace-nowrap font-sans text-[9px] font-light uppercase tracking-[0.16em] text-muted">
-                {frame.meta}
-              </span>
-            </div>
-          </Link>
-        ))}
-      </div>
+      <SectionTitle id="editorial" title="Editorial Atlas" aside="Shanghai over Gdynia — SS26" />
+      <LocationAtlas locations={ATLAS_LOCATIONS} />
 
       {/* The Board — preview */}
       <SectionTitle title="The Board" aside="Open call — apply →" />

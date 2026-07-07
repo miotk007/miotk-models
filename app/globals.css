@@ -63,72 +63,37 @@
   animation: breathe 16s ease-in-out infinite;
 }
 
-/* Camera-shutter blink layered over the homepage hero photo. */
-.camera-shutter {
+/* Three-panel cover cut that runs once as the homepage image settles in. */
+.hero-entry-cut {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 3;
   pointer-events: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   overflow: hidden;
 }
 
-.camera-shutter::before,
-.camera-shutter::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 50%;
+.hero-entry-cut span {
   background: #030302;
-  opacity: 0;
+  transform: translateY(104%);
   will-change: transform, opacity;
+  animation: hero-panel-cut 1.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.camera-shutter::before {
-  top: 0;
-  transform: translateY(-105%);
-  animation: shutter-top 5.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
-.camera-shutter::after {
-  bottom: 0;
-  transform: translateY(105%);
-  animation: shutter-bottom 5.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
-@keyframes shutter-top {
-  0%,
-  68%,
-  100% {
-    opacity: 0;
-    transform: translateY(-105%);
+@keyframes hero-panel-cut {
+  0% {
+    opacity: 0.96;
+    transform: translateY(104%);
   }
-  72%,
-  75% {
-    opacity: 0.88;
+  24%,
+  46% {
+    opacity: 0.94;
     transform: translateY(0);
   }
-  82% {
-    opacity: 0;
-    transform: translateY(-105%);
-  }
-}
-
-@keyframes shutter-bottom {
-  0%,
-  68%,
   100% {
     opacity: 0;
-    transform: translateY(105%);
-  }
-  72%,
-  75% {
-    opacity: 0.88;
-    transform: translateY(0);
-  }
-  82% {
-    opacity: 0;
-    transform: translateY(105%);
+    transform: translateY(-104%);
   }
 }
 
@@ -140,8 +105,8 @@
     animation: none;
     transform: scale(1.06);
   }
-  .camera-shutter::before,
-  .camera-shutter::after {
+  .hero-entry-cut span {
     animation: none;
+    opacity: 0;
   }
 }
