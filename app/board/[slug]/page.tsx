@@ -43,6 +43,26 @@ const STAT_LABELS: StatLabel[] = [
 ];
 
 const FRAME_POSITIONS = [
+  "center 44%",
+  "center 18%",
+  "center 18%",
+  "center 48%",
+  "center 34%",
+  "center 20%",
+  "center 25%",
+  "center 25%",
+  "center 18%",
+  "center 18%",
+  "center 24%",
+  "center 28%",
+  "center 18%",
+  "center 24%",
+  "center 20%",
+  "center 34%",
+  "center 24%",
+  "center 40%",
+  "center 44%",
+  "center 44%",
   "center 18%",
   "center 18%",
   "center 22%",
@@ -84,7 +104,7 @@ export default async function ModelProfile({
           alt={model.name}
           sizes="(max-width: 1024px) 100vw, 62vw"
           priority
-          objectPosition="center 18%"
+          objectPosition="center 48%"
           placeholderLabel="Portrait"
           className="min-h-[70vh] border-line lg:min-h-[880px] lg:border-r"
         />

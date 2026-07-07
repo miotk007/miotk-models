@@ -9,6 +9,33 @@ import { Reveal } from "@/components/Reveal";
 import { EditorialImage } from "@/components/EditorialImage";
 import { getCampaigns, getCities, getModels, getServices } from "@/lib/cms";
 
+const GDYNIA_STORY = [
+  {
+    src: "/images/editorial/gdynia/simon-gdynia-bw-06.jpg",
+    title: "Studio cover",
+    meta: "Frame 01",
+    objectPosition: "center 44%",
+  },
+  {
+    src: "/images/editorial/gdynia/simon-gdynia-bw-04.jpg",
+    title: "Seated noir",
+    meta: "Frame 02",
+    objectPosition: "center 26%",
+  },
+  {
+    src: "/images/editorial/gdynia/simon-gdynia-colour-11.jpg",
+    title: "Colour close",
+    meta: "Frame 03",
+    objectPosition: "center 18%",
+  },
+  {
+    src: "/images/editorial/gdynia/simon-gdynia-colour-12.jpg",
+    title: "White shirt",
+    meta: "Frame 04",
+    objectPosition: "center 18%",
+  },
+];
+
 const SHANGHAI_STORY = [
   {
     src: "/images/editorial/simon-shanghai-05.jpg",
@@ -49,14 +76,58 @@ export default async function HomePage() {
   return (
     <>
       <Hero
-        image={featured.frames[5] ?? featured.cover ?? "/images/kacper-shanghai.jpg"}
-        imagePosition="center 34%"
+        image={featured.cover ?? "/images/editorial/gdynia/simon-gdynia-bw-06.jpg"}
+        imagePosition="center 48%"
         modelName={featured.name}
-        meta="31.23° N — Shanghai"
+        meta="54.52° N — Gdynia"
       />
 
+      {/* Gdynia editorial */}
+      <SectionTitle id="editorial" title="Gdynia Noir" aside="Studio — 02.03.2026" />
+      <div className="grid grid-cols-2 border-t border-line lg:grid-cols-6">
+        <Reveal className="col-span-2 flex min-h-[390px] flex-col justify-between border-line px-6 py-10 md:px-10 md:py-12 lg:border-r lg:px-12">
+          <p className="eyebrow tracking-[0.3em]">Editorial File</p>
+          <div>
+            <h2 className="max-w-[12ch] font-display text-4xl font-normal leading-tight tracking-[-0.015em] md:text-[44px]">
+              Studio portraits, cut in black and white.
+            </h2>
+            <p className="mt-5 max-w-[36ch] font-sans text-[13px] font-light leading-relaxed text-muted">
+              A Gdynia studio set with stark tailoring, quiet colour frames and
+              a cleaner campaign-book rhythm.
+            </p>
+          </div>
+          <Link
+            href="/board/simon-miotk"
+            className="font-sans text-[10px] font-light uppercase tracking-[0.22em] text-muted transition-colors duration-500 hover:text-fg"
+          >
+            View portfolio →
+          </Link>
+        </Reveal>
+        {GDYNIA_STORY.map((frame) => (
+          <Link
+            key={frame.src}
+            href="/board/simon-miotk"
+            className="group block border-line p-[14px] transition-colors duration-500 md:p-[18px] [&:not(:last-child)]:border-r"
+          >
+            <EditorialImage
+              src={frame.src}
+              alt={`Simon Miotk — ${frame.title}`}
+              sizes="(max-width: 1024px) 50vw, 16vw"
+              objectPosition={frame.objectPosition}
+              className="aspect-[3/4] w-full"
+            />
+            <div className="mt-3 flex items-baseline justify-between gap-3">
+              <span className="font-display text-lg md:text-xl">{frame.title}</span>
+              <span className="whitespace-nowrap font-sans text-[9px] font-light uppercase tracking-[0.16em] text-muted">
+                {frame.meta}
+              </span>
+            </div>
+          </Link>
+        ))}
+      </div>
+
       {/* Shanghai editorial */}
-      <SectionTitle id="editorial" title="Shanghai Street" aside="Lujiazui — 28.06.2026" />
+      <SectionTitle title="Shanghai Street" aside="Lujiazui — 28.06.2026" />
       <div className="grid grid-cols-2 border-t border-line lg:grid-cols-6">
         <Reveal className="col-span-2 flex min-h-[390px] flex-col justify-between border-line px-6 py-10 md:px-10 md:py-12 lg:border-r lg:px-12">
           <p className="eyebrow tracking-[0.3em]">Editorial File</p>

@@ -54,11 +54,62 @@ const SHANGHAI_FRAMES = [
   "/images/editorial/simon-shanghai-06.jpg",
 ] as const;
 
+const GDYNIA_BW_FRAMES = [
+  "/images/editorial/gdynia/simon-gdynia-bw-01.jpg",
+  "/images/editorial/gdynia/simon-gdynia-bw-02.jpg",
+  "/images/editorial/gdynia/simon-gdynia-bw-03.jpg",
+  "/images/editorial/gdynia/simon-gdynia-bw-04.jpg",
+  "/images/editorial/gdynia/simon-gdynia-bw-05.jpg",
+  "/images/editorial/gdynia/simon-gdynia-bw-06.jpg",
+  "/images/editorial/gdynia/simon-gdynia-bw-07.jpg",
+  "/images/editorial/gdynia/simon-gdynia-bw-08.jpg",
+] as const;
+
+const GDYNIA_COLOUR_FRAMES = [
+  "/images/editorial/gdynia/simon-gdynia-colour-01.jpg",
+  "/images/editorial/gdynia/simon-gdynia-colour-02.jpg",
+  "/images/editorial/gdynia/simon-gdynia-colour-03.jpg",
+  "/images/editorial/gdynia/simon-gdynia-colour-04.jpg",
+  "/images/editorial/gdynia/simon-gdynia-colour-05.jpg",
+  "/images/editorial/gdynia/simon-gdynia-colour-06.jpg",
+  "/images/editorial/gdynia/simon-gdynia-colour-07.jpg",
+  "/images/editorial/gdynia/simon-gdynia-colour-08.jpg",
+  "/images/editorial/gdynia/simon-gdynia-colour-09.jpg",
+  "/images/editorial/gdynia/simon-gdynia-colour-10.jpg",
+  "/images/editorial/gdynia/simon-gdynia-colour-11.jpg",
+  "/images/editorial/gdynia/simon-gdynia-colour-12.jpg",
+] as const;
+
+const GDYNIA_FRAMES = [
+  GDYNIA_BW_FRAMES[5],
+  GDYNIA_BW_FRAMES[6],
+  GDYNIA_BW_FRAMES[7],
+  GDYNIA_BW_FRAMES[4],
+  GDYNIA_BW_FRAMES[0],
+  GDYNIA_BW_FRAMES[1],
+  GDYNIA_BW_FRAMES[2],
+  GDYNIA_BW_FRAMES[3],
+  GDYNIA_COLOUR_FRAMES[10],
+  GDYNIA_COLOUR_FRAMES[11],
+  GDYNIA_COLOUR_FRAMES[9],
+  GDYNIA_COLOUR_FRAMES[6],
+  GDYNIA_COLOUR_FRAMES[2],
+  GDYNIA_COLOUR_FRAMES[4],
+  GDYNIA_COLOUR_FRAMES[0],
+  GDYNIA_COLOUR_FRAMES[1],
+  GDYNIA_COLOUR_FRAMES[3],
+  GDYNIA_COLOUR_FRAMES[5],
+  GDYNIA_COLOUR_FRAMES[7],
+  GDYNIA_COLOUR_FRAMES[8],
+] as const;
+
 export const CAMPAIGNS: Campaign[] = [
-  { slug: "shanghai-street", number: "01", title: "Shanghai Street", location: "Shanghai", year: 2026, image: "/images/editorial/simon-shanghai-05.jpg" },
-  { slug: "waibaidu-bridge", number: "02", title: "Waibaidu Bridge", location: "Shanghai", year: 2026, image: "/images/editorial/simon-shanghai-06.jpg" },
-  { slug: "bund-editorial", number: "03", title: "Bund Editorial", location: "Shanghai", year: 2026, image: "/images/editorial/simon-shanghai-03.jpg" },
-  { slug: "lujiazui-light", number: "04", title: "Lujiazui Light", location: "Shanghai", year: 2026, image: "/images/editorial/simon-shanghai-01.jpg" },
+  { slug: "gdynia-noir", number: "01", title: "Gdynia Noir", location: "Gdynia", year: 2026, image: GDYNIA_BW_FRAMES[5] },
+  { slug: "studio-colour", number: "02", title: "Studio Colour", location: "Gdynia", year: 2026, image: GDYNIA_COLOUR_FRAMES[10] },
+  { slug: "shanghai-street", number: "03", title: "Shanghai Street", location: "Shanghai", year: 2026, image: "/images/editorial/simon-shanghai-05.jpg" },
+  { slug: "waibaidu-bridge", number: "04", title: "Waibaidu Bridge", location: "Shanghai", year: 2026, image: "/images/editorial/simon-shanghai-06.jpg" },
+  { slug: "bund-editorial", number: "05", title: "Bund Editorial", location: "Shanghai", year: 2026, image: "/images/editorial/simon-shanghai-03.jpg" },
+  { slug: "lujiazui-light", number: "06", title: "Lujiazui Light", location: "Shanghai", year: 2026, image: "/images/editorial/simon-shanghai-01.jpg" },
 ];
 
 export const MODELS: Model[] = [
@@ -66,10 +117,10 @@ export const MODELS: Model[] = [
     slug: "simon-miotk",
     name: "Simon Miotk",
     category: "men",
-    basedIn: "Warsaw & Shanghai",
-    cover: SHANGHAI_FRAMES[0],
-    frames: [...SHANGHAI_FRAMES],
+    basedIn: "Warsaw, Gdynia & Shanghai",
+    cover: GDYNIA_BW_FRAMES[5],
+    frames: [...GDYNIA_FRAMES, ...SHANGHAI_FRAMES],
     measurements: { heightCm: 186, chestCm: 98, waistCm: 78, hipsCm: 96, shoeEu: 44, hair: "Brown", eyes: "Green" },
-    campaigns: ["shanghai-street", "waibaidu-bridge", "bund-editorial", "lujiazui-light"],
+    campaigns: ["gdynia-noir", "studio-colour", "shanghai-street", "waibaidu-bridge", "bund-editorial", "lujiazui-light"],
   },
 ];

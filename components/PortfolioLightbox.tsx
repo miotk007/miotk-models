@@ -19,6 +19,10 @@ export function PortfolioLightbox({
 }: PortfolioLightboxProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const activeFrame = activeIndex === null ? null : frames[activeIndex];
+  const activeIsLandscape = activeFrame ? isLandscapeFrame(activeFrame) : false;
+  const activeSizes = activeIsLandscape
+    ? "(max-width: 768px) 88vw, 900px"
+    : "(max-width: 768px) 88vw, 420px";
 
   useEffect(() => {
     if (activeIndex === null) return;
@@ -130,7 +134,12 @@ export function PortfolioLightbox({
 
               <motion.div
                 key={activeFrame}
-                className="relative aspect-[2/3] w-[min(88vw,52dvh)] overflow-hidden"
+                className={
+                  activeIsLandscape
+                    ? "relative aspect-[3/2] w-[min(88vw,116dvh)] overflow-hidden bg-ph2"
+                    : "relative aspect-[2/3] w-[min(88vw,52dvh)] overflow-hidden bg-ph2"
+                }
+                data-lightbox-frame
                 initial={{ opacity: 0, scale: 0.94, y: 18 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.97, y: -10 }}
@@ -141,7 +150,7 @@ export function PortfolioLightbox({
                   src={activeFrame}
                   alt={`${modelName} — frame ${activeIndex + 1} enlarged`}
                   fill
-                  sizes="100vw"
+                  sizes={activeSizes}
                   style={{ objectFit: "contain" }}
                   className="drop-shadow-[0_24px_80px_rgba(0,0,0,0.55)]"
                   priority
@@ -165,6 +174,16 @@ export function PortfolioLightbox({
       </AnimatePresence>
     </>
   );
+}
+
+function isLandscapeFrame(frame: string) {
+  return [
+    "simon-gdynia-bw-05",
+    "simon-gdynia-bw-06",
+    "simon-gdynia-colour-06",
+    "simon-gdynia-colour-08",
+    "simon-gdynia-colour-09",
+  ].some((name) => frame.includes(name));
 }
 
 function ArrowIcon({ direction }: { direction: "left" | "right" }) {
