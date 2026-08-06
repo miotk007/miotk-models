@@ -103,6 +103,18 @@ const GDYNIA_FRAMES = [
   GDYNIA_COLOUR_FRAMES[8],
 ] as const;
 
+const NEAMAT_GHALY_FRAMES = [
+  "/images/models/neamat-ghaly/neamat-ghaly-01.jpg",
+  "/images/models/neamat-ghaly/neamat-ghaly-02.jpg",
+  "/images/models/neamat-ghaly/neamat-ghaly-03.jpg",
+  "/images/models/neamat-ghaly/neamat-ghaly-04.jpg",
+  "/images/models/neamat-ghaly/neamat-ghaly-05.jpg",
+  "/images/models/neamat-ghaly/neamat-ghaly-06.jpg",
+  "/images/models/neamat-ghaly/neamat-ghaly-07.jpg",
+  "/images/models/neamat-ghaly/neamat-ghaly-08.jpg",
+  "/images/models/neamat-ghaly/neamat-ghaly-09.jpg",
+] as const;
+
 export const CAMPAIGNS: Campaign[] = [
   { slug: "gdynia-noir", number: "01", title: "Gdynia Noir", location: "Gdynia", year: 2026, image: GDYNIA_BW_FRAMES[5] },
   { slug: "studio-colour", number: "02", title: "Studio Colour", location: "Gdynia", year: 2026, image: GDYNIA_COLOUR_FRAMES[10] },
@@ -122,5 +134,32 @@ export const MODELS: Model[] = [
     frames: [...GDYNIA_FRAMES, ...SHANGHAI_FRAMES],
     measurements: { heightCm: 186, chestCm: 98, waistCm: 78, hipsCm: 96, shoeEu: 44, hair: "Brown", eyes: "Green" },
     campaigns: ["gdynia-noir", "studio-colour", "shanghai-street", "waibaidu-bridge", "bund-editorial", "lujiazui-light"],
+  },
+  {
+    slug: "neamat-ghaly",
+    name: "Neamat Ghaly",
+    category: "women",
+    cover: NEAMAT_GHALY_FRAMES[0],
+    frames: [...NEAMAT_GHALY_FRAMES],
+    measurements: {},
+    campaigns: [],
+    // TODO(human-profile): Paste only Neamat-approved answers here after the
+    // questionnaire in /content/interviews/neamat-ghaly-questionnaire.md is
+    // completed. Keep unknown biographical details undefined.
+    humanProfile: {
+      introduction: undefined,
+      origin: undefined,
+      basedIn: undefined,
+      languages: undefined,
+      interests: undefined,
+      featuredQuote: undefined,
+      shortAnswers: undefined,
+      longAnswers: undefined,
+      editorialPortrait: undefined,
+      professionalStrengths: undefined,
+      audioPortrait: undefined,
+      videoPortrait: undefined,
+      editorial: undefined,
+    },
   },
 ];

@@ -8,7 +8,7 @@
 export type ModelCategory = "men" | "women" | "new-faces";
 
 export interface ModelMeasurements {
-  heightCm: number;
+  heightCm?: number;
   chestCm?: number;
   waistCm?: number;
   hipsCm?: number;
@@ -17,11 +17,65 @@ export interface ModelMeasurements {
   eyes?: string;
 }
 
+export interface ModelProfileAnswer {
+  question: string;
+  answer: string;
+}
+
+export interface ModelProfileImage {
+  src: string;
+  alt: string;
+  objectPosition?: string;
+}
+
+export interface ModelAudioPortrait {
+  src: string;
+  duration?: string;
+  /** Required whenever audio is published so the portrait remains accessible. */
+  transcript: string;
+}
+
+export interface ModelVideoPortrait {
+  src: string;
+  poster?: string;
+  duration?: string;
+  /** WebVTT captions file served from /public or the configured media CDN. */
+  captions: string;
+  transcript: string;
+}
+
+export interface ModelEditorialLink {
+  title: string;
+  description?: string;
+  href: string;
+}
+
+/**
+ * Optional editorial layer shared by every model profile. Public components
+ * render only populated fields, so the classic agency profile remains intact
+ * until approved first-person material is available.
+ */
+export interface ModelHumanProfile {
+  introduction?: string;
+  origin?: string;
+  basedIn?: string;
+  languages?: string[];
+  interests?: string[];
+  featuredQuote?: string;
+  shortAnswers?: ModelProfileAnswer[];
+  longAnswers?: ModelProfileAnswer[];
+  editorialPortrait?: ModelProfileImage;
+  professionalStrengths?: string[];
+  audioPortrait?: ModelAudioPortrait;
+  videoPortrait?: ModelVideoPortrait;
+  editorial?: ModelEditorialLink;
+}
+
 export interface Model {
   slug: string;
   name: string;
   category: ModelCategory;
-  basedIn: string;
+  basedIn?: string;
   /** Primary portrait, served from /public/images or a CMS CDN. */
   cover: string | null;
   /** Portfolio frames. `null` entries render as editorial placeholders. */
@@ -29,6 +83,8 @@ export interface Model {
   measurements: ModelMeasurements;
   /** Slugs of campaigns this model appears in. */
   campaigns: string[];
+  /** Approved first-person and editorial material; every field is optional. */
+  humanProfile?: ModelHumanProfile;
 }
 
 export interface Campaign {

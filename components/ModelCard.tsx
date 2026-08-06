@@ -21,9 +21,11 @@ export function ModelCard({ model, sizes }: { model: Model; sizes: string }) {
       />
       <div className="mt-3 flex items-baseline justify-between">
         <span className="font-display text-xl md:text-[22px]">{model.name}</span>
-        <span className="font-sans text-[9px] font-light uppercase tracking-[0.12em] text-muted">
-          {model.measurements.heightCm}
-        </span>
+        {model.measurements.heightCm ? (
+          <span className="font-sans text-[9px] font-light uppercase tracking-[0.12em] text-muted">
+            {model.measurements.heightCm}
+          </span>
+        ) : null}
       </div>
     </Link>
   );

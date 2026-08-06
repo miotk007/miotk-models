@@ -3,9 +3,17 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { EditorialImage } from "@/components/EditorialImage";
 import { PortfolioLightbox } from "@/components/PortfolioLightbox";
-import { Button } from "@/components/Button";
+import { ModelBookingActions } from "@/components/model/ModelBookingActions";
+import { ModelEditorialBreak } from "@/components/model/ModelEditorialBreak";
+import { ModelEditorialLink } from "@/components/model/ModelEditorialLink";
+import { ModelFinalBookingCta } from "@/components/model/ModelFinalBookingCta";
+import { ModelHumanIntroduction } from "@/components/model/ModelHumanIntroduction";
+import { ModelInterview } from "@/components/model/ModelInterview";
+import { ModelProfessionalStrengths } from "@/components/model/ModelProfessionalStrengths";
+import { ModelVoicePortrait } from "@/components/model/ModelVoicePortrait";
 import { getCampaign, getModel, getModelSlugs } from "@/lib/cms";
-import type { Campaign } from "@/lib/types";
+import { hasEditorialBreak, hasText } from "@/lib/model-human-profile";
+import type { Campaign, ModelMeasurements } from "@/lib/types";
 
 export async function generateStaticParams() {
   const slugs = await getModelSlugs();
@@ -19,16 +27,29 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const model = await getModel(params.slug);
   if (!model) return { title: "Not found" };
+  const description = hasText(model.humanProfile?.introduction)
+    ? model.humanProfile.introduction
+    : model.basedIn
+      ? `${model.name} — on the board at Miotk Models. Based in ${model.basedIn}.`
+      : `${model.name} — on the board at Miotk Models.`;
+
   return {
-    title: model.name,
-    description: `${model.name} — on the board at Miotk Models. Based in ${model.basedIn}.`,
+    title: `${model.name} — Model Profile`,
+    description,
+    alternates: { canonical: `/board/${model.slug}` },
+    openGraph: {
+      title: `${model.name} — Model Profile | Miotk Models`,
+      description,
+      type: "profile",
+      images: model.cover ? [{ url: model.cover, alt: model.name }] : undefined,
+    },
   };
 }
 
 type StatValue = string | number;
 
 type StatLabel = {
-  key: string;
+  key: keyof ModelMeasurements;
   label: string;
   fmt: (v: StatValue) => string;
 };
@@ -85,6 +106,16 @@ export default async function ModelProfile({
 
   const m = model.measurements as unknown as Record<string, string | number | undefined>;
   const portfolioFrames = model.frames.filter((frame): frame is string => Boolean(frame));
+  const visibleStats = STAT_LABELS.flatMap(({ key, label, fmt }) => {
+    const value = m[key];
+    return value === undefined ? [] : [{ key, label, value: fmt(value) }];
+  });
+  const showEditorialBreak = hasEditorialBreak(model.humanProfile);
+  const canSplitPortfolio = showEditorialBreak && portfolioFrames.length > 1;
+  const portfolioBreakAfter = Math.min(
+    4,
+    Math.max(1, Math.ceil(portfolioFrames.length / 2)),
+  );
 
   return (
     <>
@@ -117,17 +148,17 @@ export default async function ModelProfile({
               </span>
             ))}
           </h1>
-          <p className="mt-3.5 font-display text-xl italic text-muted">
-            Based between {model.basedIn}.
-          </p>
+          {model.basedIn ? (
+            <p className="mt-3.5 font-display text-xl italic text-muted">
+              Based between {model.basedIn}.
+            </p>
+          ) : null}
 
-          <div className="mt-10 grid grid-cols-2">
-            {STAT_LABELS.map(({ key, label }) => {
-              const value = m[key as string];
-              if (value === undefined) return null;
-              return (
+          {visibleStats.length > 0 ? (
+            <div className="mt-10 grid grid-cols-2">
+              {visibleStats.map(({ key, label, value }) => (
                 <div
-                  key={label}
+                  key={key}
                   className="flex justify-between border-t border-line py-4 [&:nth-child(even)]:pl-6"
                 >
                   <span className="font-sans text-[9px] font-light uppercase tracking-[0.2em] text-muted">
@@ -135,20 +166,14 @@ export default async function ModelProfile({
                   </span>
                   <span className="font-display text-lg">{value}</span>
                 </div>
-              );
-            })}
-          </div>
-
-          <div className="mt-auto flex items-center gap-8 pt-11">
-            <Button href="/book" variant="line">
-              Book {model.name.split(" ")[0]}
-            </Button>
-            <Button href="#" variant="muted">
-              Download book
-            </Button>
-          </div>
+              ))}
+            </div>
+          ) : null}
         </div>
       </div>
+
+      <ModelHumanIntroduction profile={model.humanProfile} />
+      <ModelBookingActions modelName={model.name} />
 
       {/* Portfolio frames */}
       <div className="flex items-baseline justify-between border-t border-line px-6 pb-6 pt-14 md:px-10 lg:px-12">
@@ -163,7 +188,31 @@ export default async function ModelProfile({
         frames={portfolioFrames}
         modelName={model.name}
         objectPositions={FRAME_POSITIONS}
+        breakAfter={canSplitPortfolio ? portfolioBreakAfter : undefined}
+        interlude={
+          canSplitPortfolio ? (
+            <ModelEditorialBreak
+              modelName={model.name}
+              profile={model.humanProfile}
+            />
+          ) : undefined
+        }
       />
+
+      {showEditorialBreak && !canSplitPortfolio ? (
+        <ModelEditorialBreak
+          modelName={model.name}
+          profile={model.humanProfile}
+        />
+      ) : null}
+
+      <ModelInterview profile={model.humanProfile} />
+      <ModelProfessionalStrengths profile={model.humanProfile} />
+      <ModelVoicePortrait
+        modelName={model.name}
+        profile={model.humanProfile}
+      />
+      <ModelEditorialLink profile={model.humanProfile} />
 
       {/* Campaigns */}
       {campaigns.length > 0 ? (
@@ -191,6 +240,8 @@ export default async function ModelProfile({
           ))}
         </>
       ) : null}
+
+      <ModelFinalBookingCta modelName={model.name} />
     </>
   );
 }

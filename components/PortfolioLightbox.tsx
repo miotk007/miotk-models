@@ -10,12 +10,17 @@ type PortfolioLightboxProps = {
   frames: string[];
   modelName: string;
   objectPositions: string[];
+  /** Optional editorial content inserted after this many frames. */
+  breakAfter?: number;
+  interlude?: React.ReactNode;
 };
 
 export function PortfolioLightbox({
   frames,
   modelName,
   objectPositions,
+  breakAfter,
+  interlude,
 }: PortfolioLightboxProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const activeFrame = activeIndex === null ? null : frames[activeIndex];
@@ -68,28 +73,67 @@ export function PortfolioLightbox({
     );
   };
 
-  return (
-    <>
-      <div className="grid grid-cols-2 gap-px border-y border-line bg-line md:grid-cols-3 lg:grid-cols-6">
-        {frames.map((frame, i) => (
+  const hasInterlude = Boolean(
+    interlude &&
+      breakAfter &&
+      breakAfter > 0 &&
+      breakAfter < frames.length,
+  );
+
+  const renderGrid = (
+    gridFrames: string[],
+    startIndex: number,
+    className: string,
+  ) => (
+    <div className={className}>
+      {gridFrames.map((frame, localIndex) => {
+        const frameIndex = startIndex + localIndex;
+
+        return (
           <button
             key={frame}
             type="button"
-            aria-label={`Open ${modelName} frame ${i + 1}`}
-            onClick={() => setActiveIndex(i)}
+            aria-label={`Open ${modelName} frame ${frameIndex + 1}`}
+            onClick={() => setActiveIndex(frameIndex)}
             className="group block bg-bg text-left focus-visible:z-10"
           >
             <EditorialImage
               src={frame}
-              alt={`${modelName} — frame ${i + 1}`}
+              alt={`${modelName} — frame ${frameIndex + 1}`}
               sizes="(max-width: 768px) 50vw, 20vw"
               placeholderLabel="Frame"
-              objectPosition={objectPositions[i] ?? "center 18%"}
+              objectPosition={objectPositions[frameIndex] ?? "center 18%"}
               className="aspect-[3/4] w-full"
             />
           </button>
-        ))}
-      </div>
+        );
+      })}
+    </div>
+  );
+
+  return (
+    <>
+      {hasInterlude && breakAfter ? (
+        <>
+          {renderGrid(
+            frames.slice(0, breakAfter),
+            0,
+            "grid grid-cols-2 gap-px border-y border-line bg-line md:grid-cols-3 lg:grid-cols-4",
+          )}
+          {interlude}
+          {renderGrid(
+            frames.slice(breakAfter),
+            breakAfter,
+            "grid grid-cols-2 gap-px border-b border-line bg-line md:grid-cols-3 lg:grid-cols-5",
+          )}
+        </>
+      ) : (
+        renderGrid(
+          frames,
+          0,
+          "grid grid-cols-2 gap-px border-y border-line bg-line md:grid-cols-3 lg:grid-cols-6",
+        )
+      )}
 
       <AnimatePresence>
         {activeFrame && activeIndex !== null ? (
