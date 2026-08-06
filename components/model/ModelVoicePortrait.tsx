@@ -1,5 +1,9 @@
 import type { ModelHumanProfile } from "@/lib/types";
-import { hasText, hasVoicePortrait } from "@/lib/model-human-profile";
+import {
+  hasText,
+  hasVoicePortrait,
+  showsIncompleteSections,
+} from "@/lib/model-human-profile";
 import { Reveal } from "@/components/Reveal";
 
 export function ModelVoicePortrait({
@@ -14,7 +18,8 @@ export function ModelVoicePortrait({
   const video = profile.videoPortrait;
   const audio = profile.audioPortrait;
   const portrait = video ?? audio;
-  if (!portrait) return null;
+  const incomplete = showsIncompleteSections(profile);
+  if (!portrait && !incomplete) return null;
 
   return (
     <Reveal
@@ -27,7 +32,7 @@ export function ModelVoicePortrait({
           <h2 className="mt-5 max-w-[12ch] font-display text-4xl font-normal leading-[1.02] tracking-[-0.02em] md:text-5xl">
             Hear {modelName.split(" ")[0]} in her own words.
           </h2>
-          {hasText(portrait.duration) ? (
+          {portrait && hasText(portrait.duration) ? (
             <p className="mt-5 font-sans text-[10px] font-light uppercase tracking-[0.2em] text-muted">
               Duration — {portrait.duration}
             </p>
@@ -56,16 +61,27 @@ export function ModelVoicePortrait({
             <audio controls preload="none" className="w-full" src={audio.src}>
               Your browser does not support the audio element.
             </audio>
+          ) : incomplete ? (
+            <div
+              aria-hidden="true"
+              className="flex min-h-[220px] items-start border-y border-line py-5"
+            >
+              <span className="font-sans text-[9px] font-light uppercase tracking-[0.2em] text-faint">
+                Audio or video portrait
+              </span>
+            </div>
           ) : null}
 
-          <details className="mt-8 border-y border-line py-5">
-            <summary className="cursor-pointer font-sans text-[10px] font-light uppercase tracking-[0.22em] text-muted transition-colors duration-500 hover:text-fg">
-              Read transcript
-            </summary>
-            <p className="mt-6 max-w-[68ch] whitespace-pre-line font-sans text-[13px] font-light leading-[1.9] text-muted">
-              {portrait.transcript}
-            </p>
-          </details>
+          {portrait ? (
+            <details className="mt-8 border-y border-line py-5">
+              <summary className="cursor-pointer font-sans text-[10px] font-light uppercase tracking-[0.22em] text-muted transition-colors duration-500 hover:text-fg">
+                Read transcript
+              </summary>
+              <p className="mt-6 max-w-[68ch] whitespace-pre-line font-sans text-[13px] font-light leading-[1.9] text-muted">
+                {portrait.transcript}
+              </p>
+            </details>
+          ) : null}
         </div>
       </div>
     </Reveal>

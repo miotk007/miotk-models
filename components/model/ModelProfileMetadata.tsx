@@ -1,5 +1,9 @@
 import type { ModelHumanProfile } from "@/lib/types";
-import { compactStrings, hasText } from "@/lib/model-human-profile";
+import {
+  compactStrings,
+  hasText,
+  showsIncompleteSections,
+} from "@/lib/model-human-profile";
 
 type MetadataItem = {
   label: string;
@@ -13,7 +17,7 @@ export function ModelProfileMetadata({
 }) {
   const languages = compactStrings(profile.languages);
   const interests = compactStrings(profile.interests);
-  const items: MetadataItem[] = [
+  const completedItems: MetadataItem[] = [
     ...(hasText(profile.basedIn)
       ? [{ label: "Based in", value: profile.basedIn }]
       : []),
@@ -27,6 +31,17 @@ export function ModelProfileMetadata({
       ? [{ label: "Interests", value: interests.join(" · ") }]
       : []),
   ];
+  const items =
+    completedItems.length > 0
+      ? completedItems
+      : showsIncompleteSections(profile)
+        ? [
+            { label: "Based in", value: "" },
+            { label: "Origin", value: "" },
+            { label: "Languages", value: "" },
+            { label: "Interests", value: "" },
+          ]
+        : [];
 
   if (items.length === 0) return null;
 
@@ -43,7 +58,7 @@ export function ModelProfileMetadata({
             {label}
           </dt>
           <dd className="mt-2 font-display text-xl leading-snug text-fg">
-            {value}
+            {value || <span aria-hidden="true">&nbsp;</span>}
           </dd>
         </div>
       ))}

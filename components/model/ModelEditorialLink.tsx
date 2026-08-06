@@ -1,6 +1,10 @@
 import Link from "next/link";
 import type { ModelHumanProfile } from "@/lib/types";
-import { hasEditorialLink, hasText } from "@/lib/model-human-profile";
+import {
+  hasEditorialLink,
+  hasText,
+  showsIncompleteSections,
+} from "@/lib/model-human-profile";
 import { Reveal } from "@/components/Reveal";
 
 export function ModelEditorialLink({
@@ -8,7 +12,22 @@ export function ModelEditorialLink({
 }: {
   profile?: ModelHumanProfile;
 }) {
-  if (!profile || !hasEditorialLink(profile) || !profile.editorial) return null;
+  if (!profile || !hasEditorialLink(profile)) return null;
+
+  if (!profile.editorial && showsIncompleteSections(profile)) {
+    return (
+      <Reveal as="section" className="border-t border-line px-6 py-12 md:px-10 md:py-14 lg:px-12">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-[0.72fr_1.28fr]">
+          <span className="font-sans text-[10px] font-light uppercase tracking-[0.24em] text-muted">
+            Read the editorial
+          </span>
+          <div aria-hidden="true" className="min-h-[96px] border-y border-line" />
+        </div>
+      </Reveal>
+    );
+  }
+
+  if (!profile.editorial) return null;
 
   const editorial = profile.editorial;
 

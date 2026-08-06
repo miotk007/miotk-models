@@ -2,6 +2,7 @@ import type { ModelHumanProfile } from "@/lib/types";
 import {
   compactStrings,
   hasProfessionalStrengths,
+  showsIncompleteSections,
 } from "@/lib/model-human-profile";
 import { Reveal } from "@/components/Reveal";
 
@@ -12,7 +13,16 @@ export function ModelProfessionalStrengths({
 }) {
   if (!profile || !hasProfessionalStrengths(profile)) return null;
 
-  const strengths = compactStrings(profile.professionalStrengths).slice(0, 3);
+  const completedStrengths = compactStrings(profile.professionalStrengths).slice(
+    0,
+    3,
+  );
+  const strengths =
+    completedStrengths.length > 0
+      ? completedStrengths
+      : showsIncompleteSections(profile)
+        ? ["", "", ""]
+        : [];
 
   return (
     <Reveal
@@ -24,14 +34,14 @@ export function ModelProfessionalStrengths({
         <ol className="border-t border-line">
           {strengths.map((strength, index) => (
             <li
-              key={strength}
+              key={strength || `empty-strength-${index}`}
               className="grid grid-cols-[42px_1fr] items-baseline border-b border-line py-5"
             >
               <span className="font-sans text-[9px] font-light text-faint">
                 {String(index + 1).padStart(2, "0")}
               </span>
               <span className="font-display text-2xl leading-snug md:text-3xl">
-                {strength}
+                {strength || <span aria-hidden="true">&nbsp;</span>}
               </span>
             </li>
           ))}

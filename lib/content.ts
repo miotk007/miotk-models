@@ -145,18 +145,67 @@ export const MODELS: Model[] = [
     campaigns: [],
     // TODO(human-profile): Paste only Neamat-approved answers here after the
     // questionnaire in /content/interviews/neamat-ghaly-questionnaire.md is
-    // completed. Keep unknown biographical details undefined.
+    // completed. Empty values deliberately expose the layout without
+    // attributing unapproved statements or biographical facts to Neamat.
     humanProfile: {
-      introduction: undefined,
-      origin: undefined,
-      basedIn: undefined,
-      languages: undefined,
-      interests: undefined,
-      featuredQuote: undefined,
-      shortAnswers: undefined,
-      longAnswers: undefined,
+      showIncompleteSections: true,
+      introduction: "",
+      origin: "",
+      basedIn: "",
+      languages: [],
+      interests: [],
+      featuredQuote: "",
+      shortAnswers: [
+        {
+          question:
+            "How would you introduce yourself without mentioning your appearance or modeling?",
+          answer: "",
+        },
+        {
+          question: "What do you bring to a set beyond your appearance?",
+          answer: "",
+        },
+        {
+          question:
+            "What kind of work would make you feel proud, rather than simply visible?",
+          answer: "",
+        },
+      ],
+      longAnswers: [
+        {
+          question:
+            "What do people often misunderstand about you when they first meet you?",
+          answer: "",
+        },
+        {
+          question: "What matters to you more deeply than most people realise?",
+          answer: "",
+        },
+        {
+          question: "What changes in you when you step in front of a camera?",
+          answer: "",
+        },
+        {
+          question: "What makes you trust a photographer or creative team?",
+          answer: "",
+        },
+        {
+          question:
+            "What separates a beautiful photograph from a meaningful one?",
+          answer: "",
+        },
+        {
+          question:
+            "What can a real human being bring to an image that artificial intelligence cannot reproduce?",
+          answer: "",
+        },
+        {
+          question: "What are you building for yourself beyond modeling?",
+          answer: "",
+        },
+      ],
       editorialPortrait: undefined,
-      professionalStrengths: undefined,
+      professionalStrengths: [],
       audioPortrait: undefined,
       videoPortrait: undefined,
       editorial: undefined,

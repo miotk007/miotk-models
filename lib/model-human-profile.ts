@@ -18,10 +18,27 @@ export function compactAnswers(
   );
 }
 
+export function visibleAnswers(
+  answers?: ModelProfileAnswer[],
+  includeEmptyAnswers = false,
+): ModelProfileAnswer[] {
+  return (
+    answers?.filter(
+      ({ question, answer }) =>
+        hasText(question) && (includeEmptyAnswers || hasText(answer)),
+    ) ?? []
+  );
+}
+
+export function showsIncompleteSections(profile?: ModelHumanProfile): boolean {
+  return profile?.showIncompleteSections === true;
+}
+
 export function hasHumanIntroduction(profile?: ModelHumanProfile): boolean {
   return Boolean(
     profile &&
-      (hasText(profile.introduction) ||
+      (showsIncompleteSections(profile) ||
+        hasText(profile.introduction) ||
         hasText(profile.origin) ||
         hasText(profile.basedIn) ||
         compactStrings(profile.languages).length > 0 ||
@@ -32,7 +49,8 @@ export function hasHumanIntroduction(profile?: ModelHumanProfile): boolean {
 export function hasEditorialBreak(profile?: ModelHumanProfile): boolean {
   return Boolean(
     profile &&
-      (hasText(profile.featuredQuote) ||
+      (showsIncompleteSections(profile) ||
+        hasText(profile.featuredQuote) ||
         compactAnswers(profile.shortAnswers).length > 0 ||
         (profile.editorialPortrait &&
           hasText(profile.editorialPortrait.src) &&
@@ -41,13 +59,19 @@ export function hasEditorialBreak(profile?: ModelHumanProfile): boolean {
 }
 
 export function hasInterview(profile?: ModelHumanProfile): boolean {
-  return compactAnswers(profile?.longAnswers).length > 0;
+  return Boolean(
+    showsIncompleteSections(profile) ||
+      compactAnswers(profile?.longAnswers).length > 0,
+  );
 }
 
 export function hasProfessionalStrengths(
   profile?: ModelHumanProfile,
 ): boolean {
-  return compactStrings(profile?.professionalStrengths).length > 0;
+  return Boolean(
+    showsIncompleteSections(profile) ||
+      compactStrings(profile?.professionalStrengths).length > 0,
+  );
 }
 
 export function hasVoicePortrait(profile?: ModelHumanProfile): boolean {
@@ -55,7 +79,8 @@ export function hasVoicePortrait(profile?: ModelHumanProfile): boolean {
   const video = profile?.videoPortrait;
 
   return Boolean(
-    (audio && hasText(audio.src) && hasText(audio.transcript)) ||
+    showsIncompleteSections(profile) ||
+      (audio && hasText(audio.src) && hasText(audio.transcript)) ||
       (video &&
         hasText(video.src) &&
         hasText(video.captions) &&
@@ -65,8 +90,9 @@ export function hasVoicePortrait(profile?: ModelHumanProfile): boolean {
 
 export function hasEditorialLink(profile?: ModelHumanProfile): boolean {
   return Boolean(
-    profile?.editorial &&
-      hasText(profile.editorial.title) &&
-      hasText(profile.editorial.href),
+    showsIncompleteSections(profile) ||
+      (profile?.editorial &&
+        hasText(profile.editorial.title) &&
+        hasText(profile.editorial.href)),
   );
 }

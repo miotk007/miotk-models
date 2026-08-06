@@ -1,8 +1,9 @@
 import type { ModelHumanProfile } from "@/lib/types";
 import {
-  compactAnswers,
   hasEditorialBreak,
   hasText,
+  showsIncompleteSections,
+  visibleAnswers,
 } from "@/lib/model-human-profile";
 import { EditorialImage } from "@/components/EditorialImage";
 import { Reveal } from "@/components/Reveal";
@@ -16,7 +17,8 @@ export function ModelEditorialBreak({
 }) {
   if (!profile || !hasEditorialBreak(profile)) return null;
 
-  const answers = compactAnswers(profile.shortAnswers).slice(0, 3);
+  const incomplete = showsIncompleteSections(profile);
+  const answers = visibleAnswers(profile.shortAnswers, incomplete).slice(0, 3);
   const portrait = profile.editorialPortrait;
 
   return (
@@ -55,6 +57,15 @@ export function ModelEditorialBreak({
             <blockquote className="mt-14 max-w-[18ch] font-display text-3xl italic leading-[1.22] tracking-[-0.015em] md:text-4xl">
               {profile.featuredQuote}
             </blockquote>
+          ) : incomplete ? (
+            <div
+              aria-hidden="true"
+              className="mt-14 min-h-[150px] border-y border-line py-5"
+            >
+              <span className="font-sans text-[9px] font-light uppercase tracking-[0.2em] text-faint">
+                Featured quote
+              </span>
+            </div>
           ) : null}
 
           {answers.length > 0 ? (
@@ -67,8 +78,8 @@ export function ModelEditorialBreak({
                   <dt className="font-sans text-[10px] font-light uppercase leading-relaxed tracking-[0.18em] text-muted">
                     {question}
                   </dt>
-                  <dd className="font-display text-xl leading-relaxed">
-                    {answer}
+                  <dd className="min-h-[54px] font-display text-xl leading-relaxed">
+                    {answer || <span aria-hidden="true">&nbsp;</span>}
                   </dd>
                 </div>
               ))}

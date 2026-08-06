@@ -1,5 +1,9 @@
 import type { ModelHumanProfile } from "@/lib/types";
-import { hasHumanIntroduction, hasText } from "@/lib/model-human-profile";
+import {
+  hasHumanIntroduction,
+  hasText,
+  showsIncompleteSections,
+} from "@/lib/model-human-profile";
 import { Reveal } from "@/components/Reveal";
 import { ModelProfileMetadata } from "./ModelProfileMetadata";
 
@@ -27,6 +31,15 @@ export function ModelHumanIntroduction({
             <p className="max-w-[62ch] font-display text-2xl leading-[1.35] tracking-[-0.01em] text-fg md:text-[30px]">
               {profile.introduction}
             </p>
+          ) : showsIncompleteSections(profile) ? (
+            <div
+              aria-hidden="true"
+              className="min-h-[132px] border-y border-line py-5"
+            >
+              <span className="font-sans text-[9px] font-light uppercase tracking-[0.2em] text-faint">
+                Introduction
+              </span>
+            </div>
           ) : null}
           <ModelProfileMetadata profile={profile} />
         </div>

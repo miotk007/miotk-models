@@ -1,5 +1,9 @@
 import type { ModelHumanProfile } from "@/lib/types";
-import { compactAnswers, hasInterview } from "@/lib/model-human-profile";
+import {
+  hasInterview,
+  showsIncompleteSections,
+  visibleAnswers,
+} from "@/lib/model-human-profile";
 import { Reveal } from "@/components/Reveal";
 
 export function ModelInterview({
@@ -9,7 +13,10 @@ export function ModelInterview({
 }) {
   if (!profile || !hasInterview(profile)) return null;
 
-  const answers = compactAnswers(profile.longAnswers).slice(0, 7);
+  const answers = visibleAnswers(
+    profile.longAnswers,
+    showsIncompleteSections(profile),
+  ).slice(0, 7);
 
   return (
     <section
@@ -45,8 +52,8 @@ export function ModelInterview({
                   {question}
                 </h3>
               </div>
-              <p className="max-w-[64ch] font-sans text-[13px] font-light leading-[1.9] text-muted md:text-sm">
-                {answer}
+              <p className="min-h-[76px] max-w-[64ch] border-t border-line pt-4 font-sans text-[13px] font-light leading-[1.9] text-muted md:border-t-0 md:pt-0 md:text-sm">
+                {answer || <span aria-hidden="true">&nbsp;</span>}
               </p>
             </Reveal>
           ))}

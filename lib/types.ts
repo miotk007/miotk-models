@@ -56,6 +56,8 @@ export interface ModelEditorialLink {
  * until approved first-person material is available.
  */
 export interface ModelHumanProfile {
+  /** Intentionally exposes the editorial structure before approved copy exists. */
+  showIncompleteSections?: boolean;
   introduction?: string;
   origin?: string;
   basedIn?: string;
