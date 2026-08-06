@@ -99,6 +99,25 @@ export interface Campaign {
   image: string | null;
 }
 
+export interface ProductionAsset {
+  src: string;
+  alt: string;
+  objectPosition?: string;
+  source: string;
+  category: string;
+}
+
+export interface ProductionSummary {
+  slug: string;
+  href: string;
+  client: string;
+  category: string;
+  location: string;
+  title: string;
+  description: string;
+  cover: ProductionAsset;
+}
+
 export interface City {
   name: string;
   role: string;

@@ -7,7 +7,9 @@ import { ServiceRow } from "@/components/ServiceRow";
 import { Globe } from "@/components/Globe";
 import { Reveal } from "@/components/Reveal";
 import { LocationAtlas } from "@/components/LocationAtlas";
+import { ProductionCard } from "@/components/production/ProductionCard";
 import { getCampaigns, getCities, getModels, getServices } from "@/lib/cms";
+import { STREFA_PRODUCTION } from "@/lib/productions";
 
 const ATLAS_LOCATIONS = [
   {
@@ -123,6 +125,7 @@ export default async function HomePage() {
 
       {/* Campaigns */}
       <SectionTitle id="campaigns" title="Campaigns" aside="Selected work — 2026" />
+      <ProductionCard production={STREFA_PRODUCTION} />
       <div className="grid grid-cols-2 border-t border-line lg:grid-cols-4">
         {campaigns.map((c) => (
           <CampaignCard key={c.slug} campaign={c} sizes="(max-width: 1024px) 50vw, 25vw" />
