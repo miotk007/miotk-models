@@ -45,14 +45,14 @@ export function ModelInterview({
               className="grid grid-cols-1 gap-5 border-b border-line py-9 md:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] md:gap-14 md:py-12"
             >
               <div className="flex gap-5">
-                <span className="pt-1 font-sans text-[9px] font-light tracking-[0.18em] text-faint">
+                <span className="pt-[3px] font-sans text-[9px] font-light tracking-[0.18em] text-faint">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <h3 className="max-w-[26ch] font-display text-2xl leading-snug md:text-[28px]">
+                <h3 className="max-w-[30ch] font-sans text-[10px] font-light uppercase leading-relaxed tracking-[0.18em] text-muted">
                   {question}
                 </h3>
               </div>
-              <p className="min-h-[76px] max-w-[64ch] border-t border-line pt-4 font-sans text-[13px] font-light leading-[1.9] text-muted md:border-t-0 md:pt-0 md:text-sm">
+              <p className="min-h-[54px] max-w-[52ch] border-t border-line pt-4 font-display text-lg leading-relaxed md:border-t-0 md:pt-0 md:text-xl">
                 {answer || <span aria-hidden="true">&nbsp;</span>}
               </p>
             </Reveal>

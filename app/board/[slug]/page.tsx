@@ -150,7 +150,8 @@ export default async function ModelProfile({
           </h1>
           {model.basedIn ? (
             <p className="mt-3.5 font-display text-xl italic text-muted">
-              Based between {model.basedIn}.
+              Based {/[,&]/.test(model.basedIn) ? "between" : "in"}{" "}
+              {model.basedIn}.
             </p>
           ) : null}
 
