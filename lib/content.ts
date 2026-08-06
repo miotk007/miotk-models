@@ -139,69 +139,69 @@ export const MODELS: Model[] = [
     slug: "neamat-ghaly",
     name: "Neamat Ghaly",
     category: "women",
+    basedIn: "Poland",
     cover: NEAMAT_GHALY_FRAMES[0],
     frames: [...NEAMAT_GHALY_FRAMES],
     measurements: {},
     campaigns: [],
-    // TODO(human-profile): Paste only Neamat-approved answers here after the
-    // questionnaire in /content/interviews/neamat-ghaly-questionnaire.md is
-    // completed. Empty values deliberately expose the layout without
-    // attributing unapproved statements or biographical facts to Neamat.
+    // Answers below are Neamat's own words from the questionnaire in
+    // /content/interviews/neamat-ghaly-questionnaire.md, with spelling
+    // corrected only. `introduction` stays empty until she supplies one —
+    // do not compose it on her behalf.
     humanProfile: {
-      showIncompleteSections: true,
+      showIncompleteSections: false,
       introduction: "",
-      origin: "",
-      basedIn: "",
-      languages: [],
-      interests: [],
-      featuredQuote: "",
+      origin: "Egypt",
+      basedIn: "Poland",
+      languages: ["Arabic", "English", "French"],
+      interests: [
+        "Fashion",
+        "Skincare",
+        "Wellness & fitness",
+        "Photography",
+        "Travel & cultures",
+        "Languages",
+        "Creativity & digital branding",
+      ],
+      featuredQuote:
+        "In front of the camera, I discovered that the most powerful thing I can represent is myself.",
       shortAnswers: [
         {
-          question:
-            "How would you introduce yourself without mentioning your appearance or modeling?",
-          answer: "",
+          question: "The meaning of your name:",
+          answer: "Hope Ghaly",
+        },
+        {
+          question: "One word that describes you:",
+          answer: "Majestic",
         },
         {
           question: "What do you bring to a set beyond your appearance?",
-          answer: "",
+          answer:
+            "I bring enthusiasm, positive energy, and a genuine willingness to learn and discover.",
         },
         {
           question:
             "What kind of work would make you feel proud, rather than simply visible?",
-          answer: "",
+          answer:
+            "I am interested in fashion, beauty, editorial, and lifestyle modeling projects that allow me to express creativity and tell meaningful stories. I enjoy working on projects related to fashion campaigns, skincare, wellness, cultural themes, and artistic photography. I am open to exploring new creative collaborations while keeping my work elegant, authentic, and aligned with my values.",
         },
       ],
       longAnswers: [
         {
-          question:
-            "What do people often misunderstand about you when they first meet you?",
-          answer: "",
-        },
-        {
-          question: "What matters to you more deeply than most people realise?",
-          answer: "",
-        },
-        {
           question: "What changes in you when you step in front of a camera?",
-          answer: "",
+          answer:
+            "In front of the camera, I discovered that the most powerful thing I can represent is myself. I believe authenticity, confidence, and genuine emotions create the strongest connection, and I enjoy expressing my personality and story through every shot.",
         },
         {
           question: "What makes you trust a photographer or creative team?",
-          answer: "",
+          answer:
+            "Clear communication, being respectful and flexible, beside willing to introduce or accept creative ideas.",
         },
         {
           question:
-            "What separates a beautiful photograph from a meaningful one?",
-          answer: "",
-        },
-        {
-          question:
-            "What can a real human being bring to an image that artificial intelligence cannot reproduce?",
-          answer: "",
-        },
-        {
-          question: "What are you building for yourself beyond modeling?",
-          answer: "",
+            "Is there a side of your personality that has not yet been captured in photographs?",
+          answer:
+            "A part of my personality that is not always captured in photos is the combination of different sides of who I am. I can be passionate about meaningful causes like human rights campaigns, while also being playful, curious, and connected to nature, animals, and fashion. I believe this mix of sensitivity, maturity, creativity and joy is what makes me unique.",
         },
       ],
       editorialPortrait: undefined,

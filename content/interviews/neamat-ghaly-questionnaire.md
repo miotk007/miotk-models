@@ -34,15 +34,25 @@ You may skip any question that feels too private or that you simply do not want 
 
 10. What changes in you when you step in front of a camera?
 
+> In front of the camera, I discovered that the most powerful thing I can represent is myself. I believe authenticity, confidence, and genuine emotions create the strongest connection, and I enjoy expressing my personality and story through every shot.
+
 11. What do you bring to a set beyond your appearance?
 
+> I bring enthusiasm, positive energy, and a genuine willingness to learn and discover.
+
 12. What makes you trust a photographer or creative team?
+
+> Clear communication, being respectful and flexible, beside willing to introduce or accept creative ideas.
 
 13. What kind of direction helps you give your best performance during a shoot?
 
 14. What kind of images or campaigns would you genuinely like to create?
 
+> I am interested in fashion, beauty, editorial, and lifestyle modeling projects that allow me to express creativity and tell meaningful stories. I enjoy working on projects related to fashion campaigns, skincare, wellness, cultural themes, and artistic photography. I am open to exploring new creative collaborations while keeping my work elegant, authentic, and aligned with my values.
+
 15. Is there a side of your personality that has not yet been captured in photographs?
+
+> A part of my personality that is not always captured in photos is the combination of different sides of who I am. I can be passionate about meaningful causes like human rights campaigns, while also being playful, curious, and connected to nature, animals, and fashion. I believe this mix of sensitivity, maturity, creativity and joy is what makes me unique.
 
 16. What separates a beautiful photograph from a meaningful one?
 
@@ -70,11 +80,23 @@ You may skip any question that feels too private or that you simply do not want 
 
 28. What would you like your life and career to represent five years from now?
 
+## Profile facts
+
+- Meaning of her name: Hope Ghaly
+- Origin: Egypt
+- Based in: Poland
+- Languages: Arabic, English, French
+- Interests: Beyond modeling, I am passionate about fashion, skincare, wellness, and fitness. I also enjoy photography, traveling, exploring different cultures, learning languages, and using creativity and digital branding to inspire and connect with people.
+
 ## Short answers
 
 29. Three words that describe you accurately:
 
+> Majestic
+
 30. A place that feels like home:
+
+> Poland
 
 31. A quality you admire in other people:
 
