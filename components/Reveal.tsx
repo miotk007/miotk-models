@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { fadeUp, VIEWPORT_ONCE } from "@/lib/motion";
 
 /**
@@ -18,11 +18,13 @@ export function Reveal({
   as?: "div" | "section" | "li";
 }) {
   const MotionTag = motion[as];
+  const reduceMotion = useReducedMotion();
+
   return (
     <MotionTag
       className={className}
-      variants={fadeUp}
-      initial="hidden"
+      variants={reduceMotion ? undefined : fadeUp}
+      initial={reduceMotion ? false : "hidden"}
       whileInView="visible"
       viewport={VIEWPORT_ONCE}
     >
